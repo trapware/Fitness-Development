@@ -3,7 +3,8 @@
 
 <head>
     <style>
-         body {
+        /* Your existing styles here */
+        body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             padding: 20px;
@@ -12,6 +13,7 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
         .container {
             max-width: 500px;
             margin: 0 auto;
@@ -20,28 +22,26 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h2 {
             color: #4CAF50;
         }
+
         p {
             margin-bottom: 20px;
         }
-        .row {
-            display: -ms-flexbox;
 
+        .row {
             display: flex;
-            -ms-flex-wrap: wrap;
             flex-wrap: wrap;
             margin: 0 -16px;
         }
 
         .col-50 {
-            -ms-flex: 50%;
             flex: 50%;
         }
 
         .col-75 {
-            -ms-flex: 75%;
             flex: 75%;
         }
 
@@ -58,7 +58,9 @@
             border-radius: 3px;
         }
 
-        input[type=text] {
+        input[type=text],
+        input[type=number],
+        input[type=email] {
             width: 100%;
             margin-bottom: 20px;
             padding: 12px;
@@ -69,12 +71,6 @@
         label {
             margin-bottom: 10px;
             display: block;
-        }
-
-        .icon-container {
-            margin-bottom: 20px;
-            padding: 7px 0;
-            font-size: 24px;
         }
 
         .btn {
@@ -104,18 +100,17 @@
     <div class="row">
         <div class="col-75">
             <div class="container">
-                <form action="php/register.php" method="POST">
-
+                <form id="paymentForm">
                     <div class="row">
                         <div class="col-50">
-                            <h3>Billing Address</h3>
-                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                            <input type="text" id="fname" name="firstname" placeholder="John Doe">
+                            <h3>Registration Form</h3>
+                            <label for="name"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" id="name" name="firstname" placeholder="John Doe">
                             <label for="email"><i class="fa fa-envelope"></i> Email</label>
                             <input type="email" id="email" name="email" placeholder="john@example.com">
                             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
                             <input type="text" id="adr" name="address" placeholder="Nanyang Polytechnic Street Ang Mo Kio">
-                            <label for="year"><i class="fa fa-institution"></i> School Year</label>
+                            <label for="year"><i class="schoolhear"></i> School Year</label>
                             <input type="number" id="schoolyear" name="schoolyear" placeholder="1">
                             <div class="row">
                                 <div class="col-50">
@@ -125,35 +120,35 @@
                             </div>
                         </div>
 
-                        <div class="col-50">
-                            <h3>Payment</h3>
-                            <label for="cname">Cardholder Name</label>
-                            <input type="text" id="cname" name="cardname" placeholder="John Doe">
-                            <label for="ccnum">Debit Card Number</label>
-                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
-                            <label for="expmonth">Expiry Month</label>
-                            <input type="text" id="expmonth" name="expmonth" placeholder="August">
-
-                            <div class="row">
-                                <div class="col-50">
-                                    <label for="expyear">Expiry Year</label>
-                                    <input type="text" id="expyear" name="expyear" placeholder="2024">
-                                </div>
-                                <div class="col-50">
-                                    <label for="cvv">CVV</label>
-                                    <input type="text" id="cvv" name="cvv" placeholder="352">
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                    <input type="submit" value="Register Payment" class="btn">
+
+                    <input type="hidden" name="message" id="message">
+
+                    <input type="submit" value="Register Membership" class="btn">
                 </form>
             </div>
         </div>
-
-
     </div>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var firstname = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var address = document.getElementById('adr').value;
+            var schoolyear = document.getElementById('schoolyear').value;
+            var zip = document.getElementById('zip').value;
+
+            localStorage.setItem('name', firstname);
+            localStorage.setItem('email', email);
+            localStorage.setItem('address', address);
+            localStorage.setItem('schoolyear', schoolyear);
+            localStorage.setItem('zip', zip);
+
+            window.location.href = "completeregistration.html";
+        });
+    </script>
 </body>
 
 </html>
